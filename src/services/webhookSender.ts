@@ -6,11 +6,11 @@ import { eq } from 'drizzle-orm';
 export class WebhookSender {
   async sendWebhook(targetId: string, payload: any) {
     const configRecords = await db.select().from(webhookConfigs).where(eq(webhookConfigs.id, targetId));
-    if (configRecords.length === 0 || !configRecords[0].url) {
+    if (configRecords.length === 0 || !configRecords[0]!.url) {
       console.log(`[WebhookSender] No webhook URL configured for target ${targetId}. Skipping.`);
       return;
     }
-    const config = configRecords[0];
+    const config = configRecords[0]!;
     const data = JSON.stringify(payload);
     let headers: Record<string, string> = {
       'Content-Type': 'application/json',

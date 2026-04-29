@@ -76,7 +76,7 @@ const app = new Elysia()
     // Otherwise fallback
     return {
         error: {
-          message: error.message,
+          message: (error as any).message || 'Internal Server Error',
           type: "Exception",
           code: 500,
           fbtrace_id: uuidv4().replace(/-/g, '').substring(0, 11).toUpperCase()

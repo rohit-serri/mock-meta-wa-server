@@ -37,6 +37,7 @@ export const templates = pgTable('templates', {
   category: text('category').notNull(),
   language: text('language').notNull(),
   components: jsonb('components').notNull(),
+  bidSpec: jsonb('bid_spec'), // Added based on v25.0 max-price MPM templates
   status: text('status').default('APPROVED'),
 });
 

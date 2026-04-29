@@ -1,5 +1,4 @@
 import { Elysia, t } from 'elysia';
-import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db';
 import { templates } from '../db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -10,11 +9,16 @@ export const templatesPlugin = new Elysia({ prefix: '/:version' })
   .use(authPlugin)
   .post('/:id/message_templates', async ({ params: { id }, body, set }) => {
     const waba_id = id;
-    const { name, category, components, language } = body as any;
+    const { name, category, components, language, bid_spec } = body as any;
     
     if (!name || !category || !components || !language) {
       set.status = 400;
-      throw createGraphError('Missing required fields for template creation', 'OAuthException', 100);
+      throw createGraphError('Missing required fields: name, language, category, components are required.', 'OAuthException', 100);
+    }
+
+    if (!/^[a-zA-Z0-9_]+$/.test(name)) {
+      set.status = 400;
+      throw createGraphError('Template name must contain only alphanumeric characters and underscores.', 'OAuthException', 100);
     }
     
     const templateId = Array.from(Array(15)).map(() => Math.floor(Math.random() * 10)).join('');
@@ -26,6 +30,7 @@ export const templatesPlugin = new Elysia({ prefix: '/:version' })
       category,
       language,
       components,
+      bidSpec: bid_spec || null,
       status: "APPROVED"
     });
     
@@ -60,7 +65,7 @@ export const templatesPlugin = new Elysia({ prefix: '/:version' })
     
     if (!components) {
       set.status = 400;
-      throw createGraphError('Missing components for template update', 'OAuthException', 100);
+      throw createGraphError('Missing required field: components is required.', 'OAuthException', 100);
     }
     
     const existing = await db.select().from(templates).where(and(eq(templates.wabaId, waba_id), eq(templates.id, template_id)));
@@ -69,12 +74,14 @@ export const templatesPlugin = new Elysia({ prefix: '/:version' })
       throw createGraphError('Template not found', 'OAuthException', 100);
     }
     
+    const newCategory = category || existing[0]!.category;
+
     await db.update(templates).set({
-      category: category || existing[0].category,
+      category: newCategory,
       components
     }).where(eq(templates.id, template_id));
     
-    return { id: template_id, status: "APPROVED", category: category || existing[0].category };
+    return { id: template_id, status: "APPROVED", category: newCategory };
   }, {
     detail: {
       tags: ['Templates'],
@@ -85,14 +92,14 @@ export const templatesPlugin = new Elysia({ prefix: '/:version' })
     const waba_id = id;
     if (!query.name) {
       set.status = 400;
-      throw createGraphError('Missing name parameter for template deletion', 'OAuthException', 100);
+      throw createGraphError('Missing required query parameter: name is required.', 'OAuthException', 100);
     }
     
     await db.delete(templates).where(and(eq(templates.wabaId, waba_id), eq(templates.name, query.name)));
     return { success: true };
   }, {
     query: t.Object({
-      name: t.String()
+      name: t.Optional(t.String())
     }),
     detail: {
       tags: ['Templates'],

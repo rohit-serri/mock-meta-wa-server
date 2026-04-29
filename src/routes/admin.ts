@@ -57,14 +57,14 @@ export const adminPlugin = new Elysia({ prefix: '/admin' })
     }
   })
   .post('/trigger_message', async ({ body, set }) => {
-    const { phone_number_id, from, message_type, text_body } = body;
+    const { phone_number_id, from, message_type, text_body, username } = body as any;
     
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
       set.status = 400;
       return { error: 'Invalid phone_number_id' };
     }
-    const phone = phones[0];
+    const phone = phones[0]!;
     
     // Check WABA config first, then phone config
     let configRecords = await db.select().from(webhookConfigs).where(eq(webhookConfigs.id, phone.wabaId!));
@@ -72,13 +72,18 @@ export const adminPlugin = new Elysia({ prefix: '/admin' })
       configRecords = await db.select().from(webhookConfigs).where(eq(webhookConfigs.id, phone_number_id));
     }
 
-    if (configRecords.length === 0 || !configRecords[0].url) {
+    if (configRecords.length === 0 || !configRecords[0]!.url) {
         set.status = 400;
         return { error: 'No webhook configured for this WABA or Phone ID' };
     }
 
     const messageId = 'wamid.' + uuidv4().replace(/-/g, '').substring(0, 24);
     
+    const contactProfile: any = { name: "Mock User" };
+    if (username) {
+        contactProfile.username = username;
+    }
+
     const payload: any = {
         object: "whatsapp_business_account",
         entry: [{
@@ -91,7 +96,7 @@ export const adminPlugin = new Elysia({ prefix: '/admin' })
                         phone_number_id: phone.id
                     },
                     contacts: [{
-                        profile: { name: "Mock User" },
+                        profile: contactProfile,
                         wa_id: from
                     }],
                     messages: [{
