@@ -6,7 +6,7 @@ import { eq, and } from 'drizzle-orm';
 import { authPlugin } from '../utils/auth';
 import { createGraphError } from '../utils/errors';
 
-export const templatesPlugin = new Elysia({ prefix: '/v17.0' })
+export const templatesPlugin = new Elysia({ prefix: '/:version' })
   .use(authPlugin)
   .post('/:id/message_templates', async ({ params: { id }, body, set }) => {
     const waba_id = id;

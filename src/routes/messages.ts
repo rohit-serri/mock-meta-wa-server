@@ -7,7 +7,7 @@ import { authPlugin } from '../utils/auth';
 import { createGraphError } from '../utils/errors';
 import { webhookSender } from '../services/webhookSender';
 
-export const messagesPlugin = new Elysia({ prefix: '/v17.0' })
+export const messagesPlugin = new Elysia({ prefix: '/:version' })
   .use(authPlugin)
   .post('/:id/messages', async ({ params: { id }, body, set }) => {
     const phone_number_id = id;

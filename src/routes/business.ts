@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm';
 import { authPlugin } from '../utils/auth';
 import { createGraphError } from '../utils/errors';
 
-export const businessPlugin = new Elysia({ prefix: '/v17.0' })
+export const businessPlugin = new Elysia({ prefix: '/:version' })
   .use(authPlugin)
   .get('/:id/phone_numbers', async ({ params: { id }, set }) => {
     const waba_id = id;

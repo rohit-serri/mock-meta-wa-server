@@ -9,7 +9,7 @@ import crypto from 'crypto';
 import path from 'path';
 import fs from 'fs/promises';
 
-export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
+export const mediaPlugin = new Elysia({ prefix: '/:version' })
   .use(authPlugin)
   .post('/:id/media', async ({ params: { id }, body, set }) => {
     const phone_number_id = id;
@@ -50,7 +50,7 @@ export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Upload Media'
     }
   })
-  .get('/:id', async ({ params: { id }, set }) => {
+  .get('/:id', async ({ params: { version, id }, set }) => {
     const media_id = id;
     const records = await db.select().from(media).where(eq(media.id, media_id));
     if (records.length === 0) {
@@ -60,7 +60,7 @@ export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
     const m = records[0];
 
     return {
-      url: `http://localhost:${process.env.PORT || 3000}/v17.0/${m.id}/download`,
+      url: `http://localhost:${process.env.PORT || 3000}/${version}/${m.id}/download`,
       mime_type: m.mimeType,
       sha256: m.hash,
       file_size: m.fileSize,
