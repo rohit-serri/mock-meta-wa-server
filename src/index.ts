@@ -9,6 +9,7 @@ import { adminPlugin } from './routes/admin';
 import { mediaPlugin } from './routes/media';
 import { templatesPlugin } from './routes/templates';
 import { businessPlugin } from './routes/business';
+import { embeddedSignupPlugin } from './routes/embedded_signup';
 
 // Simple seed function to ensure we have a mock WABA out of the box
 async function seedDB() {
@@ -88,6 +89,7 @@ const app = new Elysia()
   .use(mediaPlugin)
   .use(templatesPlugin)
   .use(businessPlugin)
+  .use(embeddedSignupPlugin)
   .listen(process.env.PORT || 3000);
 
 console.log(`🦊 Mock Meta WA Server is running at ${app.server?.hostname}:${app.server?.port}`);

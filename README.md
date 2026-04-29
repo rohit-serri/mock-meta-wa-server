@@ -19,8 +19,8 @@ This table extracts all documented REST API endpoints for the WhatsApp Business 
 
 | HTTP Method & Path | Description | Implementation Status |
 | --- | --- | --- |
-| `POST /whatsapp_business_solution` | Create a new Multi-Partner Solution that defines permission distribution between a solution owner app and a partner app for WhatsApp Business messaging collaboration. | ❌ Not Implemented |
-| `POST /{Version}/{Application-ID}/whatsapp_business_solution` | Create a new Multi-Partner Solution that defines permission distribution between a solution owner app and a partner app for WhatsApp Business messaging collaboration. | ❌ Not Implemented |
+| `POST /whatsapp_business_solution` | Create a new Multi-Partner Solution that defines permission distribution between a solution owner app and a partner app for WhatsApp Business messaging collaboration. | ✅ Implemented |
+| `POST /{Version}/{Application-ID}/whatsapp_business_solution` | Create a new Multi-Partner Solution that defines permission distribution between a solution owner app and a partner app for WhatsApp Business messaging collaboration. | ✅ Implemented |
 
 ## Block Users
 
@@ -32,13 +32,13 @@ This table extracts all documented REST API endpoints for the WhatsApp Business 
 
 | HTTP Method & Path | Description | Implementation Status |
 | --- | --- | --- |
-| `GET /client_whatsapp_business_accounts` | Retrieves a list of client WhatsApp Business Accounts that have been shared with the specified business. | ❌ Not Implemented |
+| `GET /client_whatsapp_business_accounts` | Retrieves a list of client WhatsApp Business Accounts that have been shared with the specified business. | ✅ Implemented |
 | `POST /onboard_partners_to_mm_lite` | Initiates the onboarding process for a partner to the WhatsApp Business Messaging Lite platform. | ❌ Not Implemented |
-| `GET /v23.0/{Business-ID}/whatsapp_business_accounts` | Retrieves a list of WhatsApp Business Accounts (WABA) associated with the specified business ID. | ❌ Not Implemented |
+| `GET /v23.0/{Business-ID}/whatsapp_business_accounts` | Retrieves a list of WhatsApp Business Accounts (WABA) associated with the specified business ID. | ✅ Implemented |
 | `GET /websites/developers.facebook.com/business_messaging/whatsapp` | Retrieves the status and details of a WhatsApp Business Account. | ❌ Not Implemented |
-| `GET /{Version}/{Business-ID}/client_whatsapp_business_accounts` | Retrieves a list of client WhatsApp Business Accounts that have been shared with the specified business. | ❌ Not Implemented |
+| `GET /{Version}/{Business-ID}/client_whatsapp_business_accounts` | Retrieves a list of client WhatsApp Business Accounts that have been shared with the specified business. | ✅ Implemented |
 | `POST /{Version}/{Business-ID}/onboard_partners_to_mm_lite` | Initiates the onboarding process for an end business to the MM Lite platform. | ❌ Not Implemented |
-| `GET /{Version}/{Business-ID}/whatsapp_business_accounts` | Retrieves a list of WhatsApp Business Accounts (WABA) associated with the specified business ID. | ❌ Not Implemented |
+| `GET /{Version}/{Business-ID}/whatsapp_business_accounts` | Retrieves a list of WhatsApp Business Accounts (WABA) associated with the specified business ID. | ✅ Implemented |
 
 ## Business Phone Numbers
 
@@ -89,8 +89,8 @@ This table extracts all documented REST API endpoints for the WhatsApp Business 
 | HTTP Method & Path | Description | Implementation Status |
 | --- | --- | --- |
 | `GET /102290129340398/phone_numbers?display_phone_number=16505551234` | Use the GET /<WABA_ID>/phone_numbers endpoint with the display_phone_number parameter to filter results. | ✅ Implemented |
-| `GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers` | Use the GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers endpoint with the code_verification_status=VERIFIED parameter to filter for only verified numbers. | ❌ Not Implemented |
-| `GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers?code_verification_status=VERIFIED` | Use the GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers endpoint with the code_verification_status=VERIFIED parameter to filter for only verified numbers. | ❌ Not Implemented |
+| `GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers` | Use the GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers endpoint with the code_verification_status=VERIFIED parameter to filter for only verified numbers. | ✅ Implemented |
+| `GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers?code_verification_status=VERIFIED` | Use the GET /<BUSINESS_ACCOUNT_ID>/preverified_numbers endpoint with the code_verification_status=VERIFIED parameter to filter for only verified numbers. | ✅ Implemented |
 | `GET /<WABA_ID>/phone_numbers` | Use the GET /<WABA_ID>/phone_numbers endpoint with the display_phone_number parameter to filter results. | ✅ Implemented |
 
 ## Groups
@@ -169,7 +169,7 @@ This table extracts all documented REST API endpoints for the WhatsApp Business 
 
 | HTTP Method & Path | Description | Implementation Status |
 | --- | --- | --- |
-| `GET /<WABA_ID>/subscribed_apps` | Retrieves a list of all applications subscribed to receive webhook notifications for a specific WhatsApp Business Account (WABA). | ❌ Not Implemented |
+| `GET /<WABA_ID>/subscribed_apps` | Retrieves a list of all applications subscribed to receive webhook notifications for a specific WhatsApp Business Account (WABA). | ✅ Implemented |
 
 ## Whatsapp Account Number
 
@@ -184,13 +184,13 @@ This table extracts all documented REST API endpoints for the WhatsApp Business 
 | `GET /assigned_users` | Retrieves a list of users assigned to the WhatsApp Business Account. | ❌ Not Implemented |
 | `GET /message_templates` | Retrieves a list of message templates associated with a WhatsApp Business Account (WABA). | ✅ Implemented |
 | `GET /schedules` | Retrieves all schedules associated with a WhatsApp Business Account, including their configuration, status, and execution details. | ❌ Not Implemented |
-| `GET /subscribed_apps` | Retrieves a list of all applications currently subscribed to webhook events for the specified WhatsApp Business Account. | ❌ Not Implemented |
-| `GET /v1/{WABA-ID}` | Retrieve comprehensive details about a WhatsApp Business Account, including its configuration, status, and settings. | ❌ Not Implemented |
+| `GET /subscribed_apps` | Retrieves a list of all applications currently subscribed to webhook events for the specified WhatsApp Business Account. | ✅ Implemented |
+| `GET /v1/{WABA-ID}` | Retrieve comprehensive details about a WhatsApp Business Account, including its configuration, status, and settings. | ✅ Implemented |
 | `GET /websites/developers_facebook_business-messaging_whatsapp/{whatsapp_business_account_id}/schedules/{schedule_id}` | Retrieves the details of a specific WhatsApp Business Account schedule. | ❌ Not Implemented |
-| `GET /{Version}/{WABA-ID}` | Retrieve comprehensive details about a WhatsApp Business Account, including its configuration, status, and settings. | ❌ Not Implemented |
+| `GET /{Version}/{WABA-ID}` | Retrieve comprehensive details about a WhatsApp Business Account, including its configuration, status, and settings. | ✅ Implemented |
 | `GET /{Version}/{WABA-ID}/message_templates` | Retrieves a list of message templates associated with a WhatsApp Business Account (WABA). | ✅ Implemented |
 | `GET /{Version}/{WABA-ID}/schedules` | Retrieves all schedules associated with a WhatsApp Business Account, including their configuration, status, and execution details. | ❌ Not Implemented |
-| `GET /{Version}/{WABA-ID}/subscribed_apps` | Retrieves a list of all applications currently subscribed to webhook events for the specified WhatsApp Business Account. | ❌ Not Implemented |
+| `GET /{Version}/{WABA-ID}/subscribed_apps` | Retrieves a list of all applications currently subscribed to webhook events for the specified WhatsApp Business Account. | ✅ Implemented |
 | `GET /{Version}/{WhatsApp-Business-Account-ID}/assigned_users` | Retrieves a list of users assigned to the WhatsApp Business Account. | ❌ Not Implemented |
 
 ## Whatsapp Business Phone Number
