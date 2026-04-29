@@ -280,6 +280,8 @@ curl -X POST http://localhost:3000/admin/trigger_message \
 ### Outbound Messaging API
 The server automatically seeds a test WABA (`id: 10000`) and a Phone Number (`id: 100001`).
 
+> 📘 **Looking to test Embedded Signup?** Read the [Mocking the Embedded Signup Flow Guide](docs/guides/embedded_signup_flow.md) to see how to simulate backend BSP onboarding.
+
 ```bash
 curl -X POST 'http://localhost:3000/v20.0/100001/messages' \
 -H 'Authorization: Bearer <any_token>' \
