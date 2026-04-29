@@ -11,7 +11,8 @@ import fs from 'fs/promises';
 
 export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
   .use(authPlugin)
-  .post('/:phone_number_id/media', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/media', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     const { file, messaging_product } = body as any;
     
     if (messaging_product !== 'whatsapp') {
@@ -49,7 +50,8 @@ export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Upload Media'
     }
   })
-  .get('/:media_id', async ({ params: { media_id }, set }) => {
+  .get('/:id', async ({ params: { id }, set }) => {
+    const media_id = id;
     const records = await db.select().from(media).where(eq(media.id, media_id));
     if (records.length === 0) {
       set.status = 404;
@@ -71,7 +73,8 @@ export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Get Media Details'
     }
   })
-  .delete('/:media_id', async ({ params: { media_id }, set }) => {
+  .delete('/:id', async ({ params: { id }, set }) => {
+    const media_id = id;
     const records = await db.select().from(media).where(eq(media.id, media_id));
     if (records.length === 0) {
       set.status = 404;
@@ -93,7 +96,8 @@ export const mediaPlugin = new Elysia({ prefix: '/v17.0' })
   })
   // IMPORTANT: The download route is NOT strictly authenticated with the standard token in Meta,
   // but it expects the token to be passed, or we just serve it directly for ease in a mock.
-  .get('/:media_id/download', async ({ params: { media_id }, set }) => {
+  .get('/:id/download', async ({ params: { id }, set }) => {
+    const media_id = id;
     const records = await db.select().from(media).where(eq(media.id, media_id));
     if (records.length === 0) {
       set.status = 404;

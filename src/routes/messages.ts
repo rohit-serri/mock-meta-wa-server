@@ -7,9 +7,10 @@ import { authPlugin } from '../utils/auth';
 import { createGraphError } from '../utils/errors';
 import { webhookSender } from '../services/webhookSender';
 
-export const messagesPlugin = new Elysia({ prefix: '/v17.0/:phone_number_id' })
+export const messagesPlugin = new Elysia({ prefix: '/v17.0' })
   .use(authPlugin)
-  .post('/messages', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/messages', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     // 1. Authenticate WABA phone ownership
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {

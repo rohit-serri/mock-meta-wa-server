@@ -8,7 +8,8 @@ import { createGraphError } from '../utils/errors';
 
 export const businessPlugin = new Elysia({ prefix: '/v17.0' })
   .use(authPlugin)
-  .get('/:waba_id/phone_numbers', async ({ params: { waba_id }, set }) => {
+  .get('/:id/phone_numbers', async ({ params: { id }, set }) => {
+    const waba_id = id;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.wabaId, waba_id));
     
     const data = phones.map(p => ({
@@ -26,7 +27,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'List Phone Numbers'
     }
   })
-  .get('/:phone_number_id/whatsapp_business_profile', async ({ params: { phone_number_id }, query, set }) => {
+  .get('/:id/whatsapp_business_profile', async ({ params: { id }, query, set }) => {
+    const phone_number_id = id;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
       set.status = 400;
@@ -53,7 +55,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Get Business Profile'
     }
   })
-  .post('/:phone_number_id/whatsapp_business_profile', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/whatsapp_business_profile', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     const { messaging_product, ...updates } = body as any;
     
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
@@ -78,7 +81,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Update Business Profile'
     }
   })
-  .post('/:phone_number_id/request_code', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/request_code', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     const { code_method } = body as any;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
@@ -96,7 +100,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Request OTP Code'
     }
   })
-  .post('/:phone_number_id/verify_code', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/verify_code', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     const { code } = body as any;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
@@ -116,7 +121,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Verify OTP Code'
     }
   })
-  .post('/:phone_number_id/register', async ({ params: { phone_number_id }, body, set }) => {
+  .post('/:id/register', async ({ params: { id }, body, set }) => {
+    const phone_number_id = id;
     const { pin, messaging_product } = body as any;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
@@ -140,7 +146,8 @@ export const businessPlugin = new Elysia({ prefix: '/v17.0' })
       summary: 'Register Phone Number'
     }
   })
-  .post('/:phone_number_id/deregister', async ({ params: { phone_number_id }, set }) => {
+  .post('/:id/deregister', async ({ params: { id }, set }) => {
+    const phone_number_id = id;
     const phones = await db.select().from(phoneNumbers).where(eq(phoneNumbers.id, phone_number_id));
     if (phones.length === 0) {
       set.status = 400;

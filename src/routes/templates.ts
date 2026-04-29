@@ -6,9 +6,10 @@ import { eq, and } from 'drizzle-orm';
 import { authPlugin } from '../utils/auth';
 import { createGraphError } from '../utils/errors';
 
-export const templatesPlugin = new Elysia({ prefix: '/v17.0/:waba_id' })
+export const templatesPlugin = new Elysia({ prefix: '/v17.0' })
   .use(authPlugin)
-  .post('/message_templates', async ({ params: { waba_id }, body, set }) => {
+  .post('/:id/message_templates', async ({ params: { id }, body, set }) => {
+    const waba_id = id;
     const { name, category, components, language } = body as any;
     
     if (!name || !category || !components || !language) {
@@ -35,7 +36,8 @@ export const templatesPlugin = new Elysia({ prefix: '/v17.0/:waba_id' })
       summary: 'Create Message Template'
     }
   })
-  .get('/message_templates', async ({ params: { waba_id }, query, set }) => {
+  .get('/:id/message_templates', async ({ params: { id }, query, set }) => {
+    const waba_id = id;
     let q = db.select().from(templates).where(eq(templates.wabaId, waba_id));
     if (query.name) {
       q = db.select().from(templates).where(and(eq(templates.wabaId, waba_id), eq(templates.name, query.name)));
@@ -52,7 +54,8 @@ export const templatesPlugin = new Elysia({ prefix: '/v17.0/:waba_id' })
       summary: 'List Message Templates'
     }
   })
-  .post('/message_templates/:template_id', async ({ params: { waba_id, template_id }, body, set }) => {
+  .post('/:id/message_templates/:template_id', async ({ params: { id, template_id }, body, set }) => {
+    const waba_id = id;
     const { components, category } = body as any;
     
     if (!components) {
@@ -78,7 +81,8 @@ export const templatesPlugin = new Elysia({ prefix: '/v17.0/:waba_id' })
       summary: 'Update Message Template'
     }
   })
-  .delete('/message_templates', async ({ params: { waba_id }, query, set }) => {
+  .delete('/:id/message_templates', async ({ params: { id }, query, set }) => {
+    const waba_id = id;
     if (!query.name) {
       set.status = 400;
       throw createGraphError('Missing name parameter for template deletion', 'OAuthException', 100);
